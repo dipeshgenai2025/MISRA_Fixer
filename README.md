@@ -1,4 +1,4 @@
-# MISRA Smart Fixer: Installation and Usage Guide
+# MISRA Smart Fixer using GenAI: Installation and Usage Guide
 
 This guide provides step-by-step instructions for setting up and running the MISRA Smart Fixer application, which uses `cppcheck` and a local Large Language Model (LLM) to automatically fix MISRA C/C++ violations.
 
