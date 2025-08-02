@@ -1,12 +1,14 @@
 # ==============================================================================
 # File: Dockerfile
-#
 # Description: This Dockerfile uses a multi-stage build to create a lean and
 #              efficient Docker image for the MISRA Smart Fixer application.
 #
 # Author: Dipesh Karmakar
 #
-# Version: 1.0
+# This source code is licensed under the MIT License. See the LICENSE file in the
+# project root for the full license text.
+#
+# Version: 1.1
 # ==============================================================================
 
 # Stage 1: The builder stage to compile llama-cpp-python with CUDA support
