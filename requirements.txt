@@ -1,0 +1,15 @@
+# ==============================================================================
+# File: Drequirement.txt
+#
+# Description: The file you provided is a standard Python requirements.txt
+#              file. It lists the dependencies required to run the application.
+#
+# Author: Dipesh Karmakar
+#
+# Version: 1.0
+# ==============================================================================
+
+gradio>=4.16.0
+llama-cpp-python[cuda]
+wandb>=0.21.0
+numpy
