@@ -17,38 +17,22 @@ import os
 import json
 import subprocess
 import gradio as gr
-import wandb
 import shutil
 import sys
 import xml.etree.ElementTree as ET
 import tempfile
 from llama_cpp import Llama
 
-# 1. Initialize W&B (free tier) for basic logging
-# This is useful for tracking application usage and model performance.
-key = os.getenv("WANDB_API_KEY")
-if key:
-    wandb.login(key=key, relogin=True)
-
-try:
-    wandb.init(
-        project="misra-smart-fixer",
-        mode="online",
-        anonymous="must"
-    )
-except Exception as e:
-    print(f"Warning: Failed to initialize wandb. {e}", file=sys.stderr)
-
-# 2. Local Model Setup
+# 1. Local Model Setup
 # IMPORTANT: The model path now points to the file copied in the Dockerfile.
-LOCAL_MODEL_PATH = "/app/codellama-7b-instruct.Q4_K_M.gguf"
+LOCAL_MODEL_PATH = "/app/Model.gguf"
 
 if not os.path.exists(LOCAL_MODEL_PATH):
     print(f"Error: Local model path '{LOCAL_MODEL_PATH}' not found.", file=sys.stderr)
     print("Please ensure the model file is copied into the container.", file=sys.stderr)
     sys.exit(1)
 
-# Initialize the Llama CPP client with the local GGUF model.
+# 2. Initialize the Llama CPP client with the local GGUF model.
 try:
     print(f"Loading local model from {LOCAL_MODEL_PATH}...")
     # The Llama class from llama-cpp-python is used to load and run GGUF models.
@@ -203,7 +187,6 @@ def predict_patch(prompt: str) -> str:
         
         # Extract the text from the LLM's response.
         patch = response["choices"][0]["text"]
-        wandb.log({"prompt": prompt, "patch": patch})
         return patch
     except Exception as e:
         print(f"Error during local model inference: {e}", file=sys.stderr)

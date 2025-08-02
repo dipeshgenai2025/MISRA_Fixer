@@ -57,9 +57,13 @@ ENV PIP_BREAK_SYSTEM_PACKAGES=1
 COPY --from=builder /wheels /wheels
 RUN pip install --no-cache-dir /wheels/*
 
+# A build argument needs to be passed the model file to the Docker build command.
+# We also provide a default value to prevent build failures if the argument is not passed.
+ARG MODEL_FILE=codellama-7b-instruct.Q4_K_M.gguf
+
 # Copy the application files and the large model file
 COPY app.py .
-COPY codellama-7b-instruct.Q4_K_M.gguf /app/codellama-7b-instruct.Q4_K_M.gguf
+COPY ${MODEL_FILE} /app/Model.gguf
 
 # Expose the application port
 EXPOSE 7860
