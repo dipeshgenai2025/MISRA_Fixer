@@ -29,8 +29,8 @@ ENV CMAKE_ARGS="-DGGML_CUDA=on -DCMAKE_CUDA_HOST_COMPILER=/usr/bin/g++-9"
 
 # Copy requirements and build a wheel for llama-cpp-python.
 # We build a wheel here so we can install it cleanly in the next stage.
-COPY requirements.txt .
-RUN pip wheel --wheel-dir /wheels --no-cache-dir -r requirements.txt
+COPY requirements_GPU.txt .
+RUN pip wheel --wheel-dir /wheels --no-cache-dir -r requirements_GPU.txt
 
 # --- End of Builder Stage ---
 
@@ -62,7 +62,7 @@ RUN pip install --no-cache-dir /wheels/*
 ARG MODEL_FILE=codellama-7b-instruct.Q4_K_M.gguf
 
 # Copy the application files and the large model file
-COPY app.py .
+COPY app_GPU.py .
 COPY ${MODEL_FILE} /app/Model.gguf
 
 # Expose the application port
@@ -71,4 +71,5 @@ EXPOSE 7860
 ENV PYTHONUNBUFFERED=1
 
 # Define the command to run the application
-CMD ["python3", "app.py"]
+CMD ["python3", "app_GPU.py"]
+

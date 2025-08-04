@@ -40,7 +40,7 @@ try:
     llm = Llama(
         model_path=LOCAL_MODEL_PATH,
         n_ctx=2048, # The maximum context size
-        n_gpu_layers=0 # Set to -1 for all layers, or a positive number.
+        n_gpu_layers=40 # Set to -1 for all layers, or a positive number.
     )
     print("Model loaded successfully with CPU acceleration.")
 except Exception as e:
