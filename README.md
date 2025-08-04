@@ -40,7 +40,7 @@ If you are on a Windows machine, you must install WSL to enable full GPU access 
 
 1.  **Install Docker Engine on Ubuntu:**
     Follow the official Docker documentation for installing Docker Engine on Ubuntu:
-    [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/)
+    https://docs.docker.com/engine/install/ubuntu/
 
 2.  **Install the NVIDIA Container Toolkit:**
     This toolkit is crucial for enabling GPU access inside your Docker containers.
@@ -99,7 +99,7 @@ This section guides you through cloning the repository, building the Docker imag
     ```
     Model loaded successfully with GPU acceleration.
     ...
-    * Running on local URL:  [http://0.0.0.0:7860](http://0.0.0.0:7860)
+    * Running on local URL:  http://0.0.0.0:7860
     ```
     For CPU mode,
     ```sh
@@ -107,14 +107,13 @@ This section guides you through cloning the repository, building the Docker imag
     ```
     You should see logs similar to:
     ```
-    * Running on local URL:  [http://0.0.0.0:7860](http://0.0.0.0:7860)
+    * Running on local URL:  http://0.0.0.0:7860
     ```
 
 6.  **Access the Web UI:**
-    On your host PC (or in your native Linux OS), open your web browser and navigate to:
-    [http://127.0.0.1:7860](http://127.0.0.1:7860)
+    On your host PC (or in your native Linux OS), open your web browser and navigate to: http://127.0.0.1:7860 to see the UI for the application
 
-
+UI Images:
 <img width="1640" height="548" alt="UI interface" src="https://github.com/user-attachments/assets/27d1b1fd-ee2a-4da4-8074-04e17390f39a" />
 
 **UI shows predictive patch:**
