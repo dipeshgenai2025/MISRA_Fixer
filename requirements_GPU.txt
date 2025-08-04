@@ -1,0 +1,18 @@
+# ==============================================================================
+# File: Drequirement.txt
+#
+# Description: The file you provided is a standard Python requirements.txt
+#              file. It lists the dependencies required to run the application.
+#
+# Author: Dipesh Karmakar
+#
+# This source code is licensed under the MIT License. See the LICENSE file in the
+# project root for the full license text.
+#
+# Version: 1.1
+# ==============================================================================
+
+gradio>=4.16.0
+llama-cpp-python[cuda]
+wandb>=0.21.0
+numpy
