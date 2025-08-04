@@ -2,14 +2,14 @@
 
 This guide provides step-by-step instructions for setting up and running the MISRA Smart Fixer application, which uses `cppcheck` and a local Large Language Model (LLM) to automatically fix MISRA C/C++ violations.
 
-The application is containerized using Docker, with support for GPU acceleration via the NVIDIA Container Toolkit.
+The application is containerized using Docker, with support for GPU acceleration via the NVIDIA Container Toolkit and CPU only mode as well.
 
 ## Prerequisites
 
 * A Windows PC with WSL (if not running a native Linux distribution)
-* NVIDIA GPU with the latest drivers installed
+* NVIDIA GPU with the latest drivers installed (For GPU Only mode)
 * Docker Engine installed and configured
-* NVIDIA Container Toolkit installed and configured for Docker
+* NVIDIA Container Toolkit installed and configured for Docker (For GPU Only mode)
 
 ## 1. Setting up the Environment
 
@@ -82,11 +82,15 @@ This section guides you through cloning the repository, building the Docker imag
 3.  **Build the Docker Image:**
     Build the Docker image with GPU support, passing the local model file as a build argument.
     ```sh
-    sudo DOCKER_BUILDKIT=1 docker build --build-arg MODEL_FILE=./codellama-7b-instruct.Q4_K_M.gguf -t misra-smart-fixer:latest .
+    sudo DOCKER_BUILDKIT=1 docker build --build-arg MODEL_FILE=./codellama-7b-instruct.Q4_K_M.gguf -t misra-smart-fixer:latest -f Dockerfile_GPU .
     ```
-    *Note: This is a GPU-enabled build. To build a CPU-only version, need to modify the `Dockerfile` and `app.py` accordingly.*
 
-4.  **Run the Docker Container:**
+    Build the Docker image with CPU support, passing the local model file as a build argument.
+    ```sh
+    sudo DOCKER_BUILDKIT=1 docker build --build-arg MODEL_FILE=./codellama-7b-instruct.Q4_K_M.gguf -t misra-smart-fixer:latest -f Dockerfile_CPU .
+    ```
+
+5.  **Run the Docker Container:**
     This command runs the container, mapping the container's port 7860 to the host machine's port 7860. The first time you run this, it will take some time to load the model.
     ```sh
     sudo docker run --rm --gpus all -v "$(pwd)":/workspace -p 7860:7860 misra-smart-fixer:latest
@@ -97,8 +101,16 @@ This section guides you through cloning the repository, building the Docker imag
     ...
     * Running on local URL:  [http://0.0.0.0:7860](http://0.0.0.0:7860)
     ```
+    For CPU mode,
+    ```sh
+    sudo docker run --rm -v "$(pwd)":/workspace -p 7860:7860 misra-smart-fixer:latest
+    ```
+    You should see logs similar to:
+    ```
+    * Running on local URL:  [http://0.0.0.0:7860](http://0.0.0.0:7860)
+    ```
 
-5.  **Access the Web UI:**
+6.  **Access the Web UI:**
     On your host PC (or in your native Linux OS), open your web browser and navigate to:
     [http://127.0.0.1:7860](http://127.0.0.1:7860)
 
