@@ -40,9 +40,10 @@ try:
     llm = Llama(
         model_path=LOCAL_MODEL_PATH,
         n_ctx=2048, # The maximum context size
-        n_gpu_layers=40 # Set to -1 for all layers, or a positive number.
+        n_gpu_layers=40, # Set to -1 for all layers, or a positive number.
+        n_batch=32
     )
-    print("Model loaded successfully with CPU acceleration.")
+    print("Model loaded successfully with GPU acceleration.")
 except Exception as e:
     print(f"Error loading local model: {e}", file=sys.stderr)
     sys.exit(1)
@@ -90,7 +91,7 @@ def run_cppcheck(source_code: str, filename: str) -> list:
         if filename.endswith(".c"):
             lang_args = ["--std=c99", "--language=c", "--addon=misra"]
         else:
-            lang_args = ["--std=c++17", "--language=c++", "--profile=misra-cpp-2012"]
+            lang_args = ["--std=c++17", "--language=c++", "--addon=misra"]
 
         # Construct and run the cppcheck command.
         cmd = ["cppcheck", "--enable=all", "--xml", *lang_args, src_file_path]
